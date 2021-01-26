@@ -7,7 +7,6 @@ resource "rke_cluster" "foo" {
     for_each = var.rke_nodes
     content {
       address           = nodes.value.public_ip
-      internal_address  = nodes.value.private_ip
       hostname_override = nodes.value.hostname
       user              = nodes.value.user
       role              = nodes.value.roles

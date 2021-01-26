@@ -62,6 +62,16 @@ variable "masterIPs" {
   default     = []
 }
 
+variable "masterHosts" {
+  description = ""
+  type        = list(object({
+    ip        = string
+    mac       = string
+    hostname  = string
+  }))
+  default     = []
+}
+
 # CaaSP worker node related variables
 variable "noWorkers" {
   description = "Number of Master nodes to be deployed"
@@ -90,6 +100,16 @@ variable "workerMacs" {
 variable "workerIPs" {
   description = ""
   type        = list(string)
+  default     = []
+}
+
+variable "workerHosts" {
+  description = ""
+  type        = list(object({
+    ip        = string
+    mac       = string
+    hostname  = string
+  }))
   default     = []
 }
 

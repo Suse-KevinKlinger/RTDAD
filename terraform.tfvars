@@ -16,12 +16,52 @@ source_image = "./modules/template.qcow2"
 
 noMasters = 1
 
+masterHosts = [
+	{
+		ip = "192.168.180.120"
+		mac = "52:54:00:6c:3c:78"
+		hostname = "Master-1"
+	},
+	{
+		ip = "192.168.180.121"
+		mac = "52:54:00:6c:3c:79"
+		hostname = "Master-2"
+	},
+	{
+		ip = "192.168.180.122"
+		mac = "52:54:00:6c:3c:80"
+		hostname = "Master-3"
+	}
+]
+
 masterMacs = ["52:54:00:6c:3c:78","52:54:00:6c:3c:79","52:54:00:6c:3c:80"]
 
 masterIPs = ["192.168.180.120","192.168.180.121","192.168.180.122"]
 
-
 noWorkers = 1
+
+workerHosts = [
+	{
+		ip = "192.168.180.123"
+		mac = "52:54:00:6c:3c:81"
+		hostname = "Worker-1"
+	},
+	{
+		ip = "192.168.180.124"
+		mac = "52:54:00:6c:3c:82"
+		hostname = "Worker-2"
+	},
+	{
+		ip = "192.168.180.125"
+		mac = "52:54:00:6c:3c:83"
+		hostname = "Worker-3"
+	},
+	{
+		ip = "192.168.180.126"
+		mac = "52:54:00:6c:3c:84"
+		hostname = "Worker-3"
+	}
+]
 
 workerMacs = ["52:54:00:6c:3c:81","52:54:00:6c:3c:82","52:54:00:6c:3c:83","52:54:00:6c:3c:84"]
 

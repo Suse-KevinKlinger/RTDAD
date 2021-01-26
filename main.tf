@@ -106,19 +106,19 @@ locals {
   masterList = [
     for instance in flatten([[module.master]]) : {
       public_ip = instance.public_ip
-      hostname  = instance.id
-      user      = "root"
-      roles     = ["controlplane", "etcd"]
-      ssh_key = tls_private_key.id.private_key_pem
+      hostname  = instance.hostname
+      user      = instance.user
+      roles     = instance.roles
+      ssh_key   = tls_private_key.id.private_key_pem
     }
   ]
   workerList = [
     for instance in flatten([[module.worker]]) : {
-      public_ip = instance.var.ip_address
-      hostname  = instance.id
-      user      = "root"
-      roles     = ["worker"]
-      ssh_key = tls_private_key.id.private_key_pem
+      public_ip = instance.public_ip
+      hostname  = instance.hostname
+      user      = instance.user
+      roles     = instance.roles
+      ssh_key   = tls_private_key.id.private_key_pem
     }
   ]
 }

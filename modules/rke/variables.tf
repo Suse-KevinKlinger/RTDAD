@@ -1,7 +1,6 @@
 variable "rke_nodes" {
   type = list(object({
     public_ip = string
-    private_ip = string
     hostname = string
     roles = list(string)
     user = string

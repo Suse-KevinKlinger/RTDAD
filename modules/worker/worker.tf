@@ -84,7 +84,7 @@ resource "libvirt_domain" "worker" {
 
   provisioner "remote-exec" {
     inline = [
-      "cloud-init status --wait"
+      "cloud-init status --wait > /dev/null"
     ]
 
     connection {

@@ -40,12 +40,12 @@ resource "local_file" "id_rsa_pub" {
 module "master" {
   depends_on = [tls_private_key.id]
 
-  count          = var.noMasters
+  count          = length(var.masterHosts)
   source         = "./modules/master/"
-  machine_name   = "Master${count.index}"
+  machine_name   = var.masterHosts[count.index].hostname
   network_name   = var.network_name
-  mac_address    = var.masterMacs[count.index]
-  ip_address     = var.masterIPs[count.index]
+  mac_address    = var.masterHosts[count.index].mac
+  ip_address     = var.masterHosts[count.index].ip
   cluster_name   = var.cluster_name
   user_data_path = "${path.module}/cloud_init.cfg"
   storage_pool   = var.storage_pool
@@ -62,12 +62,12 @@ module "master" {
 module "worker" {
   depends_on = [tls_private_key.id]
 
-  count          = var.noWorkers
+  count          = length(var.workerHosts)
   source         = "./modules/worker/"
-  machine_name   = "Workerr${count.index}"
+  machine_name   = var.workerHosts[count.index].hostname
   network_name   = var.network_name
-  mac_address    = var.workerMacs[count.index]
-  ip_address     = var.workerIPs[count.index]
+  mac_address    = var.workerHosts[count.index].mac
+  ip_address     = var.workerHosts[count.index].ip
   cluster_name   = var.cluster_name
   user_data_path = "${path.module}/cloud_init.cfg"
   storage_pool   = var.storage_pool
@@ -103,24 +103,24 @@ module "workstation" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
-  masterList = [
-    for instance in flatten([[module.master]]) : {
-      public_ip = instance.public_ip
-      hostname  = instance.hostname
-      user      = instance.user
-      roles     = instance.roles
+  masterList = flatten([
+    for host in var.masterHosts : {
+      public_ip = host.ip
+      hostname  = host.hostname
+      roles     = host.roles
       ssh_key   = tls_private_key.id.private_key_pem
+      user      = host.user
     }
-  ]
-  workerList = [
-    for instance in flatten([[module.worker]]) : {
-      public_ip = instance.public_ip
-      hostname  = instance.hostname
-      user      = instance.user
-      roles     = instance.roles
+  ])
+  workerList = flatten([
+    for host in var.workerHosts : {
+      public_ip = host.ip
+      hostname  = host.hostname
+      roles     = host.roles
       ssh_key   = tls_private_key.id.private_key_pem
+      user      = host.user
     }
-  ]
+  ])
 }
 
 module "rancher" {

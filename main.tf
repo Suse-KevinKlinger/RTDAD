@@ -107,18 +107,18 @@ locals {
     for host in var.masterHosts : {
       public_ip = host.ip
       hostname  = host.hostname
-      roles     = ["etcd","controlplane"]
+      roles     = host.roles
       ssh_key   = tls_private_key.id.private_key_pem
-      user      = "root"
+      user      = host.user
     }
   ])
   workerList = flatten([
     for host in var.workerHosts : {
       public_ip = host.ip
       hostname  = host.hostname
-      roles     = ["worker"]
+      roles     = host.roles
       ssh_key   = tls_private_key.id.private_key_pem
-      user      = "root"
+      user      = host.user
     }
   ])
 }

@@ -5,7 +5,7 @@ resource "libvirt_pool" "workstation" {
  path = "${var.storage_pool}/${var.cluster_name}_${var.machine_name}_pool/"
 }
 
-# adapt the build number 
+# Create a osDisk based on a given template 
 resource "libvirt_volume" "osDisk" {
   name   = "${var.machine_name}_image.qcow2"
   pool   = libvirt_pool.workstation.name
@@ -13,6 +13,7 @@ resource "libvirt_volume" "osDisk" {
   format = "qcow2"
 }
 
+# Parse the given cloudInit script
 data "template_file" "user_data" {
   template = file(var.user_data_path)
   vars = {
@@ -22,10 +23,7 @@ data "template_file" "user_data" {
   }
 }
 
-# for more info about paramater check this out
-# https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/website/docs/r/cloudinit.html.markdown
-# Use CloudInit to add our ssh-key to the instance
-# you can add also meta_data field
+# Create a CloudInit-disk to be used by the workstation
 resource "libvirt_cloudinit_disk" "commoninit" {
   name           = "${var.machine_name}_commoninit.iso"
   user_data      = data.template_file.user_data.rendered
@@ -45,41 +43,6 @@ resource "libvirt_domain" "workstation" {
     mac = var.mac_address
     hostname = var.machine_name
   }
-
-# Copies the private ssh key file to /root/.ssh/sshkey
-  provisioner "file" {
-    source      = "${path.module}/sshkey"
-    destination = "/root/.ssh/sshkey"
-    connection {
-      type     = "ssh"
-      host     = var.ip_address
-      private_key = var.ssh_key_file
-    }
-  }
-
-
-# Copies the script to distribute the certificate to all machines
-  provisioner "file" {
-    source      = "${path.module}/distributor.sh"
-    destination = "/home/distributor.sh"
-    connection {
-      type     = "ssh"
-      host     = var.ip_address
-      private_key = var.ssh_key_file
-    }
-  }
-
-
-# Copies the storageClass to be created for SAP DI
-  provisioner "file" {
-    source      = "${path.module}/di.tar.gz"
-    destination = "/home/di.tar.gz"
-    connection {
-      type     = "ssh"
-      host     = var.ip_address
-      private_key = var.ssh_key_file
-    }
-  } 
 
   # IMPORTANT: this is a known bug on cloud images, since they expect a console
   # we need to pass it

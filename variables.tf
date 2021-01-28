@@ -32,12 +32,6 @@ variable "source_image" {
 
 # CaaSP master node related variables
 
-variable "noMasters" {
-  description = "Number of Master nodes to be deployed"
-  type        = number
-  default     = 3
-}
-
 variable "master_cpu" {
   description = "Number of CPUs the master nodes will receive"
   type        = number
@@ -48,18 +42,6 @@ variable "master_memory" {
   description = "Amount of memory the master nodes will receive"
   type        = number
   default     = 8192
-}
-
-variable "masterMacs" {
-  description = ""
-  type        = list(string)
-  default     = []
-}
-
-variable "masterIPs" {
-  description = ""
-  type        = list(string)
-  default     = []
 }
 
 variable "masterHosts" {
@@ -73,11 +55,6 @@ variable "masterHosts" {
 }
 
 # CaaSP worker node related variables
-variable "noWorkers" {
-  description = "Number of Master nodes to be deployed"
-  type        = number
-  default     = 3
-}
 
 variable "worker_cpu" {
   description = "Number of CPUs the worker nodes will receive"
@@ -89,18 +66,6 @@ variable "worker_memory" {
   description = "Amount of memory the worker nodes will receive"
   type        = number
   default     = 32768
-}
-
-variable "workerMacs" {
-  description = ""
-  type        = list(string)
-  default     = []
-}
-
-variable "workerIPs" {
-  description = ""
-  type        = list(string)
-  default     = []
 }
 
 variable "workerHosts" {

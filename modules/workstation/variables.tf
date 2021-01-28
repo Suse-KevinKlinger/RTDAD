@@ -77,3 +77,9 @@ variable "ssh_key_file" {
   type = string
   default = ""
 }
+
+variable "kubeconfig" {
+  description = "Kubeconfig to access the RKE cluster"
+  type = string
+  default = ""
+}

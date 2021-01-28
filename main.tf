@@ -104,7 +104,7 @@ module "workstation" {
 
 locals {
   masterList = flatten([
-    for host in var.masterHosts : {
+    for host in module.master : {
       public_ip = host.ip
       hostname  = host.hostname
       roles     = host.roles
@@ -113,7 +113,7 @@ locals {
     }
   ])
   workerList = flatten([
-    for host in var.workerHosts : {
+    for host in module.worker : {
       public_ip = host.ip
       hostname  = host.hostname
       roles     = host.roles

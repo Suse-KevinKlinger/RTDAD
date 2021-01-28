@@ -1,4 +1,4 @@
-output "public_ip" {
+output "ip" {
   description = "IP of the worker node"
   value       = var.ip_address
 }

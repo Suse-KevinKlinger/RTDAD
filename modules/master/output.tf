@@ -1,4 +1,4 @@
-output "public_ip" {
+output "ip" {
   description = "IP of the master node"
   value       = var.ip_address
 }

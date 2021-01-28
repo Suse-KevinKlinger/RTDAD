@@ -18,17 +18,17 @@ masterHosts = [
 	{
 		ip = "192.168.180.120"
 		mac = "52:54:00:6c:3c:78"
-		hostname = "Master-1"
+		hostname = "Master1"
 	},
 	{
 		ip = "192.168.180.121"
 		mac = "52:54:00:6c:3c:79"
-		hostname = "Master-2"
+		hostname = "Master2"
 	},
 	{
 		ip = "192.168.180.122"
 		mac = "52:54:00:6c:3c:80"
-		hostname = "Master-3"
+		hostname = "Master3"
 	}
 ]
 
@@ -36,22 +36,22 @@ workerHosts = [
 	{
 		ip = "192.168.180.123"
 		mac = "52:54:00:6c:3c:81"
-		hostname = "Worker-1"
+		hostname = "Worker1"
 	},
 	{
 		ip = "192.168.180.124"
 		mac = "52:54:00:6c:3c:82"
-		hostname = "Worker-2"
+		hostname = "Worker2"
 	},
 	{
 		ip = "192.168.180.125"
 		mac = "52:54:00:6c:3c:83"
-		hostname = "Worker-3"
+		hostname = "Worker3"
 	},
 	{
 		ip = "192.168.180.126"
 		mac = "52:54:00:6c:3c:84"
-		hostname = "Worker-3"
+		hostname = "Worker4"
 	}
 ]
 

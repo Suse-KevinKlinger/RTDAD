@@ -1,4 +1,4 @@
-# declare custom pools
+# Create a custom pool
 resource "libvirt_pool" "workstation" {
  name = "${var.cluster_name}_${var.machine_name}"
  type = "dir"
@@ -67,6 +67,19 @@ resource "libvirt_domain" "workstation" {
     type        = "spice"
     listen_type = "address"
     autoport    = true
+  }
+
+  # Writes the kubeconfig file created by the RKE provider to access the RKE cluster
+  provisioner "remote-exec" {
+    inline = [
+      "cloud-init status --wait > /dev/null",
+      "echo '${var.kubeconfig}' > /root/.kube/config"
+    ]
+    connection {
+      type     = "ssh"
+      host     = var.ip_address
+      private_key = var.ssh_key_file
+    }
   }
 }
 

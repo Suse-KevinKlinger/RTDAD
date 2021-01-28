@@ -78,27 +78,6 @@ module "worker" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-#  Spin up Workstation
-# ---------------------------------------------------------------------------------------------------------------------
-
-module "workstation" {
-  depends_on = [tls_private_key.id]
-
-  source         = "./modules/workstation/"
-  machine_name   = "Workstation"
-  network_name   = var.network_name
-  mac_address    = "52:54:00:6c:3c:77"
-  ip_address     = "192.168.180.129"
-  cluster_name   = var.cluster_name
-  user_data_path = "${path.module}/modules/workstation/cloud_init.cfg"
-  storage_pool   = var.storage_pool
-  cpu            = var.ws_cpu
-  memory         = var.ws_memory
-  ssh_key_file   = tls_private_key.id.private_key_pem
-  public_key     = tls_private_key.id.public_key_openssh
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 #  Deploy RKE
 # ---------------------------------------------------------------------------------------------------------------------
 
@@ -124,7 +103,7 @@ locals {
 }
 
 module "rancher" {
-  depends_on = [module.master, module.worker, module.workstation, local.masterList, local.workerList]
+  depends_on = [module.master, module.worker, local.masterList, local.workerList]
   source     = "./modules/rke/"
 
   rke_nodes = concat(local.masterList,local.workerList)
@@ -141,3 +120,31 @@ module "rancher" {
   }
 }
 
+// Write kubeconfig to Terraform host
+resource "local_file" "kubeconfig" {
+  content    = module.rancher.kubeconfig
+  filename   = "kubeconfig"
+  depends_on = [module.rancher]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+#  Spin up Workstation
+# ---------------------------------------------------------------------------------------------------------------------
+
+module "workstation" {
+  depends_on     = [module.rancher]
+
+  source         = "./modules/workstation/"
+  machine_name   = "Workstation"
+  network_name   = var.network_name
+  mac_address    = "52:54:00:6c:3c:77"
+  ip_address     = "192.168.180.119"
+  cluster_name   = var.cluster_name
+  user_data_path = "${path.module}/modules/workstation/cloud_init.cfg"
+  storage_pool   = var.storage_pool
+  cpu            = var.ws_cpu
+  memory         = var.ws_memory
+  ssh_key_file   = tls_private_key.id.private_key_pem
+  public_key     = tls_private_key.id.public_key_openssh
+  kubeconfig     = module.rancher.kubeconfig
+}

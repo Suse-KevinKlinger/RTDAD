@@ -1,8 +1,8 @@
 # Create a custom pool
 resource "libvirt_pool" "workstation" {
- name = "${var.cluster_name}_${var.machine_name}"
- type = "dir"
- path = "${var.storage_pool}/${var.cluster_name}_${var.machine_name}_pool/"
+  name = "${var.cluster_name}_${var.machine_name}"
+  type = "dir"
+  path = "${var.storage_pool}/${var.cluster_name}_${var.machine_name}_pool/"
 }
 
 # Create a osDisk based on a given template 
@@ -17,17 +17,17 @@ resource "libvirt_volume" "osDisk" {
 data "template_file" "user_data" {
   template = file(var.user_data_path)
   vars = {
-    HOSTNAME    = var.machine_name
-    PUBLICKEY   = var.public_key
-    IPADDR      = var.ip_address
+    HOSTNAME  = var.machine_name
+    PUBLICKEY = var.public_key
+    IPADDR    = var.ip_address
   }
 }
 
 # Create a CloudInit-disk to be used by the workstation
 resource "libvirt_cloudinit_disk" "commoninit" {
-  name           = "${var.machine_name}_commoninit.iso"
-  user_data      = data.template_file.user_data.rendered
-  pool           = libvirt_pool.workstation.name
+  name      = "${var.machine_name}_commoninit.iso"
+  user_data = data.template_file.user_data.rendered
+  pool      = libvirt_pool.workstation.name
 }
 
 # Create the machine
@@ -40,8 +40,8 @@ resource "libvirt_domain" "workstation" {
 
   network_interface {
     network_name = var.network_name
-    mac = var.mac_address
-    hostname = var.machine_name
+    mac          = var.mac_address
+    hostname     = var.machine_name
   }
 
   # IMPORTANT: this is a known bug on cloud images, since they expect a console
@@ -58,7 +58,7 @@ resource "libvirt_domain" "workstation" {
     target_type = "virtio"
     target_port = "1"
   }
-  
+
   disk {
     volume_id = libvirt_volume.osDisk.id
   }
@@ -76,11 +76,11 @@ resource "libvirt_domain" "workstation" {
       "echo '${var.kubeconfig}' > /root/.kube/config"
     ]
     connection {
-      type     = "ssh"
-      host     = var.ip_address
+      type        = "ssh"
+      host        = var.ip_address
       private_key = var.ssh_key_file
     }
   }
 }
 
- 
+

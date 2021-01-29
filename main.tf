@@ -14,23 +14,23 @@ provider "rke" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "tls_private_key" "id" {
-  algorithm   = "RSA"
-  rsa_bits    = "4096"
+  algorithm = "RSA"
+  rsa_bits  = "4096"
 }
 
- # Store the id private key in a file.
+# Store the id private key in a file.
 resource "local_file" "id_rsa" {
-  depends_on = [ tls_private_key.id ]
-  filename = "modules/keys/id_rsa"
-  file_permission = "0600"
+  depends_on        = [tls_private_key.id]
+  filename          = "modules/keys/id_rsa"
+  file_permission   = "0600"
   sensitive_content = tls_private_key.id.private_key_pem
 }
 
- # Store the id public key in a file.
+# Store the id public key in a file.
 resource "local_file" "id_rsa_pub" {
-  content  = tls_private_key.id.public_key_openssh
-  filename = "modules/keys/id_rsa.pub"
-  depends_on = [ tls_private_key.id ]
+  content    = tls_private_key.id.public_key_openssh
+  filename   = "modules/keys/id_rsa.pub"
+  depends_on = [tls_private_key.id]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -106,11 +106,11 @@ module "rancher" {
   depends_on = [module.master, module.worker, local.masterList, local.workerList]
   source     = "./modules/rke/"
 
-  rke_nodes = concat(local.masterList,local.workerList)
+  rke_nodes = concat(local.masterList, local.workerList)
 
   rke = {
-    cluster_name = "rancher_test"
-    dind = false
+    cluster_name       = "rancher_test"
+    dind               = false
     kubernetes_version = "v1.18.6-rancher1-1"
   }
 
@@ -132,7 +132,7 @@ resource "local_file" "kubeconfig" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "workstation" {
-  depends_on     = [module.rancher]
+  depends_on = [module.rancher]
 
   source         = "./modules/workstation/"
   machine_name   = "Workstation"

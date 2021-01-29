@@ -15,44 +15,44 @@ network_name = "myvirt_net"
 source_image = "./modules/template.qcow2"
 
 masterHosts = [
-	{
-		ip = "192.168.180.120"
-		mac = "52:54:00:6c:3c:78"
-		hostname = "Master1"
-	},
-	{
-		ip = "192.168.180.121"
-		mac = "52:54:00:6c:3c:79"
-		hostname = "Master2"
-	},
-	{
-		ip = "192.168.180.122"
-		mac = "52:54:00:6c:3c:80"
-		hostname = "Master3"
-	}
+  {
+    ip       = "192.168.180.120"
+    mac      = "52:54:00:6c:3c:78"
+    hostname = "Master1"
+  },
+  {
+    ip       = "192.168.180.121"
+    mac      = "52:54:00:6c:3c:79"
+    hostname = "Master2"
+  },
+  {
+    ip       = "192.168.180.122"
+    mac      = "52:54:00:6c:3c:80"
+    hostname = "Master3"
+  }
 ]
 
 workerHosts = [
-	{
-		ip = "192.168.180.123"
-		mac = "52:54:00:6c:3c:81"
-		hostname = "Worker1"
-	},
-	{
-		ip = "192.168.180.124"
-		mac = "52:54:00:6c:3c:82"
-		hostname = "Worker2"
-	},
-	{
-		ip = "192.168.180.125"
-		mac = "52:54:00:6c:3c:83"
-		hostname = "Worker3"
-	},
-	{
-		ip = "192.168.180.126"
-		mac = "52:54:00:6c:3c:84"
-		hostname = "Worker4"
-	}
+  {
+    ip       = "192.168.180.123"
+    mac      = "52:54:00:6c:3c:81"
+    hostname = "Worker1"
+  },
+  {
+    ip       = "192.168.180.124"
+    mac      = "52:54:00:6c:3c:82"
+    hostname = "Worker2"
+  },
+  {
+    ip       = "192.168.180.125"
+    mac      = "52:54:00:6c:3c:83"
+    hostname = "Worker3"
+  },
+  {
+    ip       = "192.168.180.126"
+    mac      = "52:54:00:6c:3c:84"
+    hostname = "Worker4"
+  }
 ]
 
 # (Optional) Specifies the number of CPU the CaaSP Master nodes will receive

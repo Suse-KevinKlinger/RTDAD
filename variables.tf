@@ -46,12 +46,12 @@ variable "master_memory" {
 
 variable "masterHosts" {
   description = ""
-  type        = list(object({
-    ip        = string
-    mac       = string
-    hostname  = string
+  type = list(object({
+    ip       = string
+    mac      = string
+    hostname = string
   }))
-  default     = []
+  default = []
 }
 
 # CaaSP worker node related variables
@@ -70,12 +70,12 @@ variable "worker_memory" {
 
 variable "workerHosts" {
   description = ""
-  type        = list(object({
-    ip        = string
-    mac       = string
-    hostname  = string
+  type = list(object({
+    ip       = string
+    mac      = string
+    hostname = string
   }))
-  default     = []
+  default = []
 }
 
 # Workstation related variables

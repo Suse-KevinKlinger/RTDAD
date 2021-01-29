@@ -8,7 +8,7 @@ variable "provider_uri" {
 
 variable "cluster_name" {
   description = "The cluster name is used as a prefix for all domains and pools"
-  type	      = string
+  type        = string
   default     = "test"
 }
 
@@ -37,7 +37,7 @@ variable "machine_name" {
 }
 
 variable "cpu" {
-  description = "Defines the number of CPU the machine will receive" 
+  description = "Defines the number of CPU the machine will receive"
   type        = number
   default     = 4
 }
@@ -68,18 +68,18 @@ variable "ip_address" {
 
 variable "public_key" {
   description = "Public ssh key created by keys module"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "ssh_key_file" {
   description = "Private ssh key to connect to machine"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "kubeconfig" {
   description = "Kubeconfig to access the RKE cluster"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }

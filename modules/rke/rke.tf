@@ -1,7 +1,7 @@
 # Create a new RKE cluster using config yaml
 resource "rke_cluster" "foo" {
   cluster_name = var.rke.cluster_name
-  dind = var.rke.dind
+  dind         = var.rke.dind
 
   dynamic nodes {
     for_each = var.rke_nodes

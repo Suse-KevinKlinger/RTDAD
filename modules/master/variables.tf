@@ -68,6 +68,12 @@ variable "ip_address" {
   default     = ""
 }
 
+variable "public_ip" {
+  description = "Public IP address the machine is supposed to receive"
+  type        = string
+  default     = ""
+}
+
 variable "public_key" {
   description = "Public ssh key created by keys module"
   type        = string

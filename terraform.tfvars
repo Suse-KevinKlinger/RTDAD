@@ -17,41 +17,48 @@ source_image = "./modules/template.qcow2"
 masterHosts = [
   {
     ip       = "192.168.180.120"
+    public_ip = ""
     mac      = "52:54:00:6c:3c:78"
     hostname = "Master1"
   },
   {
     ip       = "192.168.180.121"
+    public_ip = ""
     mac      = "52:54:00:6c:3c:79"
     hostname = "Master2"
   },
   {
     ip       = "192.168.180.122"
-    mac      = "52:54:00:6c:3c:80"
+    public_ip = ""
+    mac      = "52:54:00:6c:3c:7a"
     hostname = "Master3"
   }
 ]
 
 workerHosts = [
   {
-    ip       = "192.168.180.123"
-    mac      = "52:54:00:6c:3c:81"
-    hostname = "Worker1"
+    ip        = "192.168.180.123"
+    public_ip = "10.17.69.17"
+    mac       = "52:54:00:6c:3c:7b"
+    hostname  = "Worker1"
   },
   {
-    ip       = "192.168.180.124"
-    mac      = "52:54:00:6c:3c:82"
-    hostname = "Worker2"
+    ip        = "192.168.180.124"
+    public_ip = "10.17.69.18"
+    mac       = "52:54:00:6c:3c:7c"
+    hostname  = "Worker2"
   },
   {
-    ip       = "192.168.180.125"
-    mac      = "52:54:00:6c:3c:83"
-    hostname = "Worker3"
+    ip        = "192.168.180.125"
+    public_ip = "10.17.69.19"
+    mac       = "52:54:00:6c:3c:7d"
+    hostname  = "Worker3"
   },
   {
-    ip       = "192.168.180.126"
-    mac      = "52:54:00:6c:3c:84"
-    hostname = "Worker4"
+    ip        = "192.168.180.126"
+    public_ip = "10.17.69.21"
+    mac       = "52:54:00:6c:3c:7e"
+    hostname  = "Worker4"
   }
 ]
 

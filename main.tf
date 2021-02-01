@@ -46,6 +46,7 @@ module "master" {
   network_name   = var.network_name
   mac_address    = var.masterHosts[count.index].mac
   ip_address     = var.masterHosts[count.index].ip
+  public_ip      = var.masterHosts[count.index].public_ip
   cluster_name   = var.cluster_name
   user_data_path = "${path.module}/cloud_init.cfg"
   storage_pool   = var.storage_pool
@@ -68,6 +69,7 @@ module "worker" {
   network_name   = var.network_name
   mac_address    = var.workerHosts[count.index].mac
   ip_address     = var.workerHosts[count.index].ip
+  public_ip      = var.workerHosts[count.index].public_ip
   cluster_name   = var.cluster_name
   user_data_path = "${path.module}/cloud_init.cfg"
   storage_pool   = var.storage_pool

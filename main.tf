@@ -9,6 +9,10 @@ provider "rke" {
   log_file = "rke_debug.log"
 }
 
+provider "kubernetes" {
+  config_path = "kubeconfig"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 #  CREATE SSH KEYS
 # ---------------------------------------------------------------------------------------------------------------------
@@ -116,7 +120,6 @@ module "rancher" {
     kubernetes_version = "v1.18.6-rancher1-1"
   }
 
-
   providers = {
     rke = rke.rkeProvider
   }
@@ -127,6 +130,20 @@ resource "local_file" "kubeconfig" {
   content    = module.rancher.kubeconfig
   filename   = "kubeconfig"
   depends_on = [module.rancher]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+#  Prepare Kubernetes for SAP DI Deployment
+# ---------------------------------------------------------------------------------------------------------------------
+
+module "kubernetes" {
+  depends_on = [module.workstation]
+
+  source = "./modules/k8s"
+
+  providers = {
+    kubernetes = kubernetes
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

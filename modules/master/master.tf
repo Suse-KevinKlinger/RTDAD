@@ -27,6 +27,7 @@ data "template_file" "user_data" {
     HOSTNAME  = var.machine_name
     PUBLICKEY = var.public_key
     IPADDR    = var.ip_address
+    PUBLICIP  = var.public_ip
   }
 }
 

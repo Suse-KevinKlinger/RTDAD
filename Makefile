@@ -9,15 +9,14 @@ plan:
 
 clean:
 	terraform destroy -auto-approve
-	ssh-keygen -R 192.168.180.80 -f /root/.ssh/known_hosts
-	ssh-keygen -R 192.168.180.81 -f /root/.ssh/known_hosts
-	ssh-keygen -R 192.168.180.82 -f /root/.ssh/known_hosts
-	ssh-keygen -R 192.168.180.83 -f /root/.ssh/known_hosts
-	ssh-keygen -R 192.168.180.84 -f /root/.ssh/known_hosts
-	ssh-keygen -R 192.168.180.85 -f /root/.ssh/known_hosts
-	ssh-keygen -R 192.168.180.86 -f /root/.ssh/known_hosts
-	ssh-keygen -R 192.168.180.87 -f /root/.ssh/known_hosts
-	ssh-keygen -R 192.168.180.88 -f /root/.ssh/known_hosts
+	ssh-keygen -R 192.168.180.119 -f /root/.ssh/known_hosts
+	ssh-keygen -R 192.168.180.120 -f /root/.ssh/known_hosts
+	ssh-keygen -R 192.168.180.121 -f /root/.ssh/known_hosts
+	ssh-keygen -R 192.168.180.122 -f /root/.ssh/known_hosts
+	ssh-keygen -R 192.168.180.123 -f /root/.ssh/known_hosts
+	ssh-keygen -R 192.168.180.124 -f /root/.ssh/known_hosts
+	ssh-keygen -R 192.168.180.125 -f /root/.ssh/known_hosts
+	ssh-keygen -R 192.168.180.126 -f /root/.ssh/known_hosts
 
 stop:
 	virsh shutdown $(CLUSTERNAME)_Worker1

@@ -2,7 +2,7 @@
 #  Create the namespace to be used
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "kubernetes_namespace" "di" {
+resource "kubernetes_namespace" "di_namespace" {
   metadata {
     name = var.namespace
   }
@@ -13,7 +13,7 @@ resource "kubernetes_namespace" "di" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "kubernetes_secret" "ceph-admin-secret" {
-  depends_on = [kubernetes_namespace.di]
+  depends_on = [kubernetes_namespace.di_namespace]
 
   metadata {
     name      = "ceph-admin-secret"
@@ -28,7 +28,7 @@ resource "kubernetes_secret" "ceph-admin-secret" {
 }
 
 resource "kubernetes_secret" "ceph-user-secret" {
-  depends_on = [kubernetes_namespace.di]
+  depends_on = [kubernetes_namespace.di_namespace]
 
   metadata {
     name      = "ceph-user-secret"

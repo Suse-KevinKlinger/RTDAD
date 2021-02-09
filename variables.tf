@@ -93,6 +93,7 @@ variable "ws_memory" {
   default     = 16384
 }
 
+# RKE related variables
 variable "nodes" {
   description = ""
   type = list(object({
@@ -104,4 +105,11 @@ variable "nodes" {
     ssh_key    = string
   }))
   default = []
+}
+
+# Kubernetes related variables
+variable "k8s_namespace" {
+  description = "The Kubernetes namespace that will be created and be used for secrets, storageClasses, etc."
+  type        = string
+  default     = "di"
 }

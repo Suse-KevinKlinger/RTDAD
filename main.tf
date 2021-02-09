@@ -144,6 +144,8 @@ module "kubernetes" {
   providers = {
     kubernetes = kubernetes
   }
+
+  namespace = var.k8s_namespace
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

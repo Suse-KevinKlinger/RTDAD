@@ -10,7 +10,8 @@ provider "rke" {
 }
 
 provider "kubernetes" {
-  config_path = "kubeconfig"
+  alias    = "k8sProvider"
+  config_path = "modules/k8s/kubeconfig"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -128,7 +129,7 @@ module "rancher" {
 // Write kubeconfig to Terraform host
 resource "local_file" "kubeconfig" {
   content    = module.rancher.kubeconfig
-  filename   = "kubeconfig"
+  filename   = "modules/k8s/kubeconfig"
   depends_on = [module.rancher]
 }
 
@@ -137,15 +138,15 @@ resource "local_file" "kubeconfig" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "kubernetes" {
-  depends_on = [module.workstation]
+  depends_on = [local_file.kubeconfig]
 
   source = "./modules/k8s"
+  namespace = var.k8s_namespace
+
 
   providers = {
-    kubernetes = kubernetes
+    kubernetes = kubernetes.k8sProvider
   }
-
-  namespace = var.k8s_namespace
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

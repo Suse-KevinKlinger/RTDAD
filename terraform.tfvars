@@ -16,22 +16,22 @@ source_image = "./modules/template.qcow2"
 
 masterHosts = [
   {
-    ip       = "192.168.180.120"
+    ip        = "192.168.180.120"
     public_ip = ""
-    mac      = "52:54:00:6c:3c:78"
-    hostname = "Master1"
+    mac       = "52:54:00:6c:3c:78"
+    hostname  = "Master1"
   },
   {
-    ip       = "192.168.180.121"
+    ip        = "192.168.180.121"
     public_ip = ""
-    mac      = "52:54:00:6c:3c:79"
-    hostname = "Master2"
+    mac       = "52:54:00:6c:3c:79"
+    hostname  = "Master2"
   },
   {
-    ip       = "192.168.180.122"
+    ip        = "192.168.180.122"
     public_ip = ""
-    mac      = "52:54:00:6c:3c:7a"
-    hostname = "Master3"
+    mac       = "52:54:00:6c:3c:7a"
+    hostname  = "Master3"
   }
 ]
 

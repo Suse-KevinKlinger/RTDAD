@@ -5,13 +5,14 @@ provider "libvirt" {
 }
 
 provider "rke" {
-  alias    = "rkeProvider"
   log_file = "rke_debug.log"
 }
 
 provider "kubernetes" {
-  alias    = "k8sProvider"
-  config_path = "modules/k8s/kubeconfig"
+  host                   = module.rancher.api_server_url
+  client_certificate     = module.rancher.client_cert
+  client_key             = module.rancher.client_key
+  cluster_ca_certificate = module.rancher.ca_crt
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -120,10 +121,6 @@ module "rancher" {
     dind               = false
     kubernetes_version = "v1.18.6-rancher1-1"
   }
-
-  providers = {
-    rke = rke.rkeProvider
-  }
 }
 
 // Write kubeconfig to Terraform host
@@ -138,15 +135,10 @@ resource "local_file" "kubeconfig" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "kubernetes" {
-  depends_on = [local_file.kubeconfig]
+  depends_on = [module.rancher]
 
-  source = "./modules/k8s"
+  source    = "./modules/k8s"
   namespace = var.k8s_namespace
-
-
-  providers = {
-    kubernetes = kubernetes.k8sProvider
-  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

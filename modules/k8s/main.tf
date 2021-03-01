@@ -21,7 +21,7 @@ resource "kubernetes_secret" "ceph-admin-secret" {
   }
 
   data = {
-    key = "QVFBYnM3dGZBQUFBQUJBQSs1SVIvaUNWd0Jrcko0YXIrWXUyTmc9PQo="
+    key = var.ceph_admin_secret
   }
 
   type = "kubernetes.io/rbd"
@@ -36,7 +36,7 @@ resource "kubernetes_secret" "ceph-user-secret" {
   }
 
   data = {
-    key = "QVFBZHM3dGZBQUFBQUJBQVA3UkxrU1NqOVVTNWEzZDJDcmhYbEE9PQo="
+    key = var.ceph_user_secret
   }
 
   type = "kubernetes.io/rbd"

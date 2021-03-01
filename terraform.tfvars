@@ -79,3 +79,10 @@ ws_cpu = 1
 
 # (Optional) Specifies the number of memory the Workstation will receive
 ws_memory = 4096
+
+
+# (Optional) If a Ceph storage is used, the admin secret can be initialized here so K8s will create those on deployment
+ceph_admin_secret = "QVFBYnM3dGZBQUFBQUJBQSs1SVIvaUNWd0Jrcko0YXIrWXUyTmc9PQo="
+
+# (Optional) If a Ceph storage is used, the user secret can be initialized here so K8s will create those on deployment
+ceph_user_secret = "QVFBZHM3dGZBQUFBQUJBQVA3UkxrU1NqOVVTNWEzZDJDcmhYbEE9PQo="

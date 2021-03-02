@@ -18,12 +18,6 @@ variable "storage_pool" {
   default     = "default"
 }
 
-variable "network_name" {
-  description = "Name of the network, the machines will be attached to. This must be an already existing virtual network."
-  type        = string
-  default     = ""
-}
-
 variable "source_image" {
   description = "Source image used to boot the machines (qcow2 format). It's possible to specify the path to a local (relative to the machine running the terraform command) image or a remote one. Remote images have to be specified using HTTP(S) urls for now. Specific node images have preference over this value"
   type        = string
@@ -48,7 +42,6 @@ variable "masterHosts" {
   description = ""
   type = list(object({
     ip        = string
-    public_ip = string
     mac       = string
     hostname  = string
   }))
@@ -73,7 +66,6 @@ variable "workerHosts" {
   description = ""
   type = list(object({
     ip        = string
-    public_ip = string
     mac       = string
     hostname  = string
   }))
@@ -97,7 +89,6 @@ variable "ws_memory" {
 variable "nodes" {
   description = ""
   type = list(object({
-    public_ip  = string
     private_ip = string
     hostname   = string
     roles      = list(string)
@@ -124,3 +115,4 @@ variable "ceph_user_secret" {
   description = "The key that can be used to access the SES storage as desired user"
   type        = string
   default     = ""
+}

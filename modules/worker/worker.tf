@@ -27,7 +27,6 @@ data "template_file" "user_data" {
     HOSTNAME  = var.machine_name
     PUBLICKEY = var.public_key
     IPADDR    = var.ip_address
-    PUBLICIP  = var.public_ip
   }
 }
 
@@ -48,12 +47,6 @@ resource "libvirt_domain" "worker" {
   vcpu   = var.cpu
 
   cloudinit = libvirt_cloudinit_disk.commoninit.id
-
-  network_interface {
-    network_name = var.network_name
-    mac          = var.mac_address
-    hostname     = var.machine_name
-  }
 
   network_interface {
     bridge = "br0"

@@ -6,7 +6,7 @@ resource "rke_cluster" "foo" {
   dynamic nodes {
     for_each = var.rke_nodes
     content {
-      address           = nodes.value.public_ip
+      address           = nodes.value.ip
       hostname_override = nodes.value.hostname
       user              = nodes.value.user
       role              = nodes.value.roles

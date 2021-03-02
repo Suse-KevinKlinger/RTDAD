@@ -39,9 +39,7 @@ resource "libvirt_domain" "workstation" {
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
   network_interface {
-    network_name = var.network_name
-    mac          = var.mac_address
-    hostname     = var.machine_name
+    bridge = "br0"
   }
 
   # IMPORTANT: this is a known bug on cloud images, since they expect a console

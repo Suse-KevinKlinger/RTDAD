@@ -49,10 +49,8 @@ module "master" {
   count          = length(var.masterHosts)
   source         = "./modules/master/"
   machine_name   = var.masterHosts[count.index].hostname
-  network_name   = var.network_name
   mac_address    = var.masterHosts[count.index].mac
   ip_address     = var.masterHosts[count.index].ip
-  public_ip      = var.masterHosts[count.index].public_ip
   cluster_name   = var.cluster_name
   user_data_path = "${path.module}/cloud_init.cfg"
   storage_pool   = var.storage_pool
@@ -72,10 +70,8 @@ module "worker" {
   count          = length(var.workerHosts)
   source         = "./modules/worker/"
   machine_name   = var.workerHosts[count.index].hostname
-  network_name   = var.network_name
   mac_address    = var.workerHosts[count.index].mac
   ip_address     = var.workerHosts[count.index].ip
-  public_ip      = var.workerHosts[count.index].public_ip
   cluster_name   = var.cluster_name
   user_data_path = "${path.module}/cloud_init.cfg"
   storage_pool   = var.storage_pool
@@ -92,20 +88,20 @@ module "worker" {
 locals {
   masterList = flatten([
     for host in module.master : {
-      public_ip = host.ip
-      hostname  = host.hostname
-      roles     = host.roles
-      ssh_key   = tls_private_key.id.private_key_pem
-      user      = host.user
+      ip       = host.ip
+      hostname = host.hostname
+      roles    = host.roles
+      ssh_key  = tls_private_key.id.private_key_pem
+      user     = host.user
     }
   ])
   workerList = flatten([
     for host in module.worker : {
-      public_ip = host.ip
-      hostname  = host.hostname
-      roles     = host.roles
-      ssh_key   = tls_private_key.id.private_key_pem
-      user      = host.user
+      ip       = host.ip
+      hostname = host.hostname
+      roles    = host.roles
+      ssh_key  = tls_private_key.id.private_key_pem
+      user     = host.user
     }
   ])
 }
@@ -150,9 +146,7 @@ module "workstation" {
 
   source         = "./modules/workstation/"
   machine_name   = "Workstation"
-  network_name   = var.network_name
-  mac_address    = "52:54:00:6c:3c:77"
-  ip_address     = "192.168.180.119"
+  ip_address     = "10.17.69.29"
   cluster_name   = var.cluster_name
   user_data_path = "${path.module}/modules/workstation/cloud_init.cfg"
   storage_pool   = var.storage_pool

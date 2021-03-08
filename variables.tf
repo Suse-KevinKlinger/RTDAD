@@ -41,9 +41,9 @@ variable "master_memory" {
 variable "masterHosts" {
   description = ""
   type = list(object({
-    ip        = string
-    mac       = string
-    hostname  = string
+    ip       = string
+    mac      = string
+    hostname = string
   }))
   default = []
 }
@@ -65,9 +65,9 @@ variable "worker_memory" {
 variable "workerHosts" {
   description = ""
   type = list(object({
-    ip        = string
-    mac       = string
-    hostname  = string
+    ip       = string
+    mac      = string
+    hostname = string
   }))
   default = []
 }

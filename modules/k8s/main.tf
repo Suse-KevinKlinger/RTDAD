@@ -8,6 +8,18 @@ resource "kubernetes_namespace" "di_namespace" {
   }
 }
 
+resource "kubernetes_namespace" "rancher_ui_ns" {
+  metadata {
+    name = "cattle-system"
+  }
+}
+
+resource "kubernetes_namespace" "rancher_cert_ns" {
+  metadata {
+    name = "cert-manager"
+  }
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 #  Create the ceph secrets
 # ---------------------------------------------------------------------------------------------------------------------
@@ -67,4 +79,62 @@ resource "kubernetes_storage_class" "distorage" {
     userSecretName       = "ceph-user-secret"
   }
   volume_binding_mode = "Immediate"
+}
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+#  Prepare cluster to deploy Rancher Management UI
+# ---------------------------------------------------------------------------------------------------------------------
+
+# Create rancher-installer service account
+resource "kubernetes_service_account" "rancher_installer" {
+  metadata {
+    name      = "rancher-intaller"
+    namespace = "kube-system"
+  }
+
+  automount_service_account_token = true
+}
+
+# Bind rancher-intall service account to cluster-admin
+resource "kubernetes_cluster_role_binding" "rancher_installer_admin" {
+  metadata {
+    name = "${kubernetes_service_account.rancher_installer.metadata[0].name}-admin"
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account.rancher_installer.metadata[0].name
+    namespace = "kube-system"
+  }
+}
+
+resource "kubernetes_job" "install_cert_manager_crds" {
+  depends_on = [kubernetes_namespace.rancher_ui_ns, kubernetes_namespace.rancher_cert_ns]
+
+  metadata {
+    name      = "install-certmanager-crds"
+    namespace = "kube-system"
+  }
+  spec {
+    template {
+      metadata {}
+      spec {
+        container {
+          name    = "kubectl"
+          image   = "bitnami/kubectl:1.18.16"
+          command = ["kubectl", "apply", "-f", "https://github.com/jetstack/cert-manager/releases/download/v1.0.4/cert-manager.crds.yaml"]
+        }
+        host_network                    = true
+        automount_service_account_token = true
+        service_account_name            = kubernetes_service_account.rancher_installer.metadata[0].name
+        restart_policy                  = "Never"
+      }
+    }
+  }
+  wait_for_completion = true
 }

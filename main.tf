@@ -15,6 +15,15 @@ provider "kubernetes" {
   cluster_ca_certificate = module.rancher.ca_crt
 }
 
+provider "helm" {
+  kubernetes {
+    host                   = module.rancher.api_server_url
+    client_certificate     = module.rancher.client_cert
+    client_key             = module.rancher.client_key
+    cluster_ca_certificate = module.rancher.ca_crt
+  }
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 #  CREATE SSH KEYS
 # ---------------------------------------------------------------------------------------------------------------------
@@ -133,8 +142,15 @@ resource "local_file" "kubeconfig" {
 module "kubernetes" {
   depends_on = [module.rancher]
 
-  source    = "./modules/k8s"
-  namespace = var.k8s_namespace
+  source            = "./modules/k8s"
+  namespace         = var.k8s_namespace
+  ceph_admin_secret = var.ceph_admin_secret
+  ceph_user_secret  = var.ceph_user_secret
+}
+
+module "helm" {
+  depends_on = [module.kubernetes]
+  source     = "./modules/rancher"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

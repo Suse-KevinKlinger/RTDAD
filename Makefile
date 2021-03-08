@@ -16,7 +16,7 @@ clean:
 	ssh-keygen -R 10.17.69.25 -f /root/.ssh/known_hosts
 	ssh-keygen -R 10.17.69.26 -f /root/.ssh/known_hosts
 	ssh-keygen -R 10.17.69.27 -f /root/.ssh/known_hosts
-	ssh-keygen -R 10.17.69.30 -f /root/.ssh/known_hosts
+	ssh-keygen -R 10.17.69.29 -f /root/.ssh/known_hosts
 
 stop:
 	virsh shutdown $(CLUSTERNAME)_Worker1

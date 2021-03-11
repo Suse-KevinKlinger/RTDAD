@@ -24,9 +24,13 @@ resource "libvirt_volume" "dataDisk" {
 data "template_file" "user_data" {
   template = file(var.user_data_path)
   vars = {
-    HOSTNAME  = var.machine_name
-    PUBLICKEY = var.public_key
-    IPADDR    = var.ip_address
+    HOSTNAME       = var.machine_name
+    PUBLICKEY      = var.public_key
+    IPADDR         = var.ip_address
+    SALTMASTERADDR = var.salt_master_address
+    REGIP          = var.registry_ip
+    REGFQDN        = var.registry_fqdn
+    REGHN          = var.registry_hostname
   }
 }
 

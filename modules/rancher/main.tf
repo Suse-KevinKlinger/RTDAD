@@ -20,3 +20,16 @@ resource "helm_release" "rancherUI" {
     value = "kevinstest.example.com"
   }
 }
+
+resource "helm_release" "longhorn" {
+
+  name       = "longhorn"
+  repository = "https://charts.longhorn.io"
+  chart      = "longhorn"
+  namespace  = "longhorn-system"
+
+  set {
+    name  = "name"
+    value = "longhorn"
+  }
+}

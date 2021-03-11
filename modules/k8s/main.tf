@@ -20,6 +20,12 @@ resource "kubernetes_namespace" "rancher_cert_ns" {
   }
 }
 
+resource "kubernetes_namespace" "longhorn_ns" {
+  metadata {
+    name = "longhorn-system"
+  }
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 #  Create the ceph secrets
 # ---------------------------------------------------------------------------------------------------------------------

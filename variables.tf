@@ -73,16 +73,20 @@ variable "workerHosts" {
 }
 
 # Workstation related variables
-variable "ws_cpu" {
-  description = "Number of CPUs the LoadBalancer nodes will receive"
-  type        = number
-  default     = 4
-}
-
-variable "ws_memory" {
-  description = "Amount of memory the LoadBalancer nodes will receive"
-  type        = number
-  default     = 16384
+variable "workstation" {
+  description = ""
+  type = object({
+    ip       = string
+    hostname = string
+    cpu      = number
+    memory   = number
+  })
+  default = {
+    ip       = ""
+    hostname = "Workstation"
+    cpu      = 4
+    memory   = 16384
+  }
 }
 
 # RKE related variables
@@ -113,6 +117,24 @@ variable "ceph_admin_secret" {
 
 variable "ceph_user_secret" {
   description = "The key that can be used to access the SES storage as desired user"
+  type        = string
+  default     = ""
+}
+
+variable "registry_ip" {
+  description = "IP address of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "registry_fqdn" {
+  description = "FQDN of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "registry_hostname" {
+  description = "Hostname of the private container registry to be used for SAP DI"
   type        = string
   default     = ""
 }

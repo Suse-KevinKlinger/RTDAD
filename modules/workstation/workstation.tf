@@ -20,6 +20,9 @@ data "template_file" "user_data" {
     HOSTNAME  = var.machine_name
     PUBLICKEY = var.public_key
     IPADDR    = var.ip_address
+    REGIP     = var.registry_ip
+    REGFQDN   = var.registry_fqdn
+    REGHN     = var.registry_hostname
   }
 }
 

@@ -72,3 +72,27 @@ variable "ssh_key_file" {
   type        = string
   default     = ""
 }
+
+variable "salt_master_address" {
+  description = "Address of the Salt master node"
+  type        = string
+  default     = ""
+}
+
+variable "registry_ip" {
+  description = "IP address of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "registry_fqdn" {
+  description = "FQDN of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "registry_hostname" {
+  description = "Hostname of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}

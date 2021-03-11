@@ -77,3 +77,21 @@ variable "kubeconfig" {
   type        = string
   default     = ""
 }
+
+variable "registry_ip" {
+  description = "IP address of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "registry_fqdn" {
+  description = "FQDN of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "registry_hostname" {
+  description = "Hostname of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}

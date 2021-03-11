@@ -64,12 +64,16 @@ worker_cpu = 4
 # (Optional) Specifies the amount of memory the CaaSP Worker nodes will receive
 worker_memory = 32768
 
-# (Optional) Specifies the number of CPU the Workstation will receive
-ws_cpu = 1
+workstation = {
+  ip       = "10.17.69.29"
+  hostname = "Workstation"
+  cpu      = 1
+  memory   = 4096
+}
 
-# (Optional) Specifies the number of memory the Workstation will receive
-ws_memory = 4096
-
+registry_ip         = "10.17.69.28"
+registry_fqdn       = "Harbor-Registry.example.com"
+registry_hostname   = "Harbor-Registry"
 
 # (Optional) If a Ceph storage is used, the admin secret can be initialized here so K8s will create those on deployment
 ceph_admin_secret = "QVFBYnM3dGZBQUFBQUJBQSs1SVIvaUNWd0Jrcko0YXIrWXUyTmc9PQo="

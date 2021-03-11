@@ -55,18 +55,22 @@ resource "local_file" "id_rsa_pub" {
 module "master" {
   depends_on = [tls_private_key.id]
 
-  count          = length(var.masterHosts)
-  source         = "./modules/master/"
-  machine_name   = var.masterHosts[count.index].hostname
-  mac_address    = var.masterHosts[count.index].mac
-  ip_address     = var.masterHosts[count.index].ip
-  cluster_name   = var.cluster_name
-  user_data_path = "${path.module}/cloud_init.cfg"
-  storage_pool   = var.storage_pool
-  cpu            = var.master_cpu
-  memory         = var.master_memory
-  ssh_key_file   = tls_private_key.id.private_key_pem
-  public_key     = tls_private_key.id.public_key_openssh
+  count               = length(var.masterHosts)
+  source              = "./modules/master/"
+  machine_name        = var.masterHosts[count.index].hostname
+  mac_address         = var.masterHosts[count.index].mac
+  ip_address          = var.masterHosts[count.index].ip
+  cluster_name        = var.cluster_name
+  user_data_path      = "${path.module}/cloud_init.cfg"
+  storage_pool        = var.storage_pool
+  cpu                 = var.master_cpu
+  memory              = var.master_memory
+  ssh_key_file        = tls_private_key.id.private_key_pem
+  public_key          = tls_private_key.id.public_key_openssh
+  salt_master_address = var.workstation.ip
+  registry_ip         = var.registry_ip
+  registry_fqdn       = var.registry_fqdn
+  registry_hostname   = var.registry_hostname
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -76,18 +80,22 @@ module "master" {
 module "worker" {
   depends_on = [tls_private_key.id]
 
-  count          = length(var.workerHosts)
-  source         = "./modules/worker/"
-  machine_name   = var.workerHosts[count.index].hostname
-  mac_address    = var.workerHosts[count.index].mac
-  ip_address     = var.workerHosts[count.index].ip
-  cluster_name   = var.cluster_name
-  user_data_path = "${path.module}/cloud_init.cfg"
-  storage_pool   = var.storage_pool
-  cpu            = var.worker_cpu
-  memory         = var.worker_memory
-  ssh_key_file   = tls_private_key.id.private_key_pem
-  public_key     = tls_private_key.id.public_key_openssh
+  count               = length(var.workerHosts)
+  source              = "./modules/worker/"
+  machine_name        = var.workerHosts[count.index].hostname
+  mac_address         = var.workerHosts[count.index].mac
+  ip_address          = var.workerHosts[count.index].ip
+  cluster_name        = var.cluster_name
+  user_data_path      = "${path.module}/cloud_init.cfg"
+  storage_pool        = var.storage_pool
+  cpu                 = var.worker_cpu
+  memory              = var.worker_memory
+  ssh_key_file        = tls_private_key.id.private_key_pem
+  public_key          = tls_private_key.id.public_key_openssh
+  salt_master_address = var.workstation.ip
+  registry_ip         = var.registry_ip
+  registry_fqdn       = var.registry_fqdn
+  registry_hostname   = var.registry_hostname
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -160,15 +168,18 @@ module "helm" {
 module "workstation" {
   depends_on = [module.rancher]
 
-  source         = "./modules/workstation/"
-  machine_name   = "Workstation"
-  ip_address     = "10.17.69.29"
-  cluster_name   = var.cluster_name
-  user_data_path = "${path.module}/modules/workstation/cloud_init.cfg"
-  storage_pool   = var.storage_pool
-  cpu            = var.ws_cpu
-  memory         = var.ws_memory
-  ssh_key_file   = tls_private_key.id.private_key_pem
-  public_key     = tls_private_key.id.public_key_openssh
-  kubeconfig     = module.rancher.kubeconfig
+  source            = "./modules/workstation/"
+  machine_name      = var.workstation.hostname
+  ip_address        = var.workstation.ip
+  cluster_name      = var.cluster_name
+  user_data_path    = "${path.module}/modules/workstation/cloud_init.cfg"
+  storage_pool      = var.storage_pool
+  cpu               = var.workstation.cpu
+  memory            = var.workstation.memory
+  ssh_key_file      = tls_private_key.id.private_key_pem
+  public_key        = tls_private_key.id.public_key_openssh
+  kubeconfig        = module.rancher.kubeconfig
+  registry_ip       = var.registry_ip
+  registry_fqdn     = var.registry_fqdn
+  registry_hostname = var.registry_hostname
 }

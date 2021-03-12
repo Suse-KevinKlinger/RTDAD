@@ -18,6 +18,12 @@ resource "libvirt_volume" "dataDisk" {
   pool   = libvirt_pool.worker.name
   format = "qcow2"
   size   = 100000000000
+
+resource "libvirt_volume" "longhornDisk" {
+  name   = "${var.machine_name}_longhorn.qcow2"
+  pool   = libvirt_pool.worker.name
+  format = "qcow2"
+  size   = var.longhorn_disk_size
 }
 
 
@@ -76,6 +82,9 @@ resource "libvirt_domain" "worker" {
   }
   disk {
     volume_id = libvirt_volume.dataDisk.id
+  }
+  disk {
+    volume_id = libvirt_volume.longhornDisk.id
   }
 
   graphics {

@@ -64,11 +64,11 @@ resource "kubernetes_secret" "ceph-user-secret" {
 #  Create storage class
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "kubernetes_storage_class" "distorage" {
+resource "kubernetes_storage_class" "ceph" {
   metadata {
-    name = "distorage"
+    name = "ceph"
     annotations = {
-      "storageclass.kubernetes.io/is-default-class" = "true"
+      "storageclass.kubernetes.io/is-default-class" = var.useLonghorn ? "false" : "true"
     }
   }
   storage_provisioner = "kubernetes.io/rbd"
@@ -85,6 +85,22 @@ resource "kubernetes_storage_class" "distorage" {
     userSecretName       = "ceph-user-secret"
   }
   volume_binding_mode = "Immediate"
+}
+
+resource "kubernetes_storage_class" "longhorn" {
+  metadata {
+    name = "longhorn"
+    annotations = {
+      "storageclass.kubernetes.io/is-default-class" = var.useLonghorn ? "true" : "false"
+    }
+  }
+  storage_provisioner = "driver.longhorn.io"
+  allow_volume_expansion = true
+  parameters = {
+    numberOfReplicas= "3"
+    staleReplicaTimeout= "2880" # 48 hours in minutes
+    fromBackup= ""
+  }
 }
 
 

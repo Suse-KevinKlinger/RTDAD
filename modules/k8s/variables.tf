@@ -15,3 +15,9 @@ variable "ceph_user_secret" {
   type        = string
   default     = ""
 }
+
+variable "useLonghorn" {
+  description = "Determines if Longhorn should be used as the default storage"
+  type        = bool
+  default     = true
+}

@@ -17,7 +17,7 @@ resource "helm_release" "rancherUI" {
 
   set {
     name  = "hostname"
-    value = "kevinstest.example.com"
+    value = var.rancherUI_address
   }
 }
 

@@ -75,6 +75,8 @@ registry_ip         = "10.17.69.28"
 registry_fqdn       = "Harbor-Registry.example.com"
 registry_hostname   = "Harbor-Registry"
 
+rancherUI_address = "test.example.com"
+
 # (Optional) If a Ceph storage is used, the admin secret can be initialized here so K8s will create those on deployment
 ceph_admin_secret = "QVFBYnM3dGZBQUFBQUJBQSs1SVIvaUNWd0Jrcko0YXIrWXUyTmc9PQo="
 

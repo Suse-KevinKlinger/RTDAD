@@ -17,7 +17,8 @@ resource "libvirt_volume" "dataDisk" {
   name   = "${var.machine_name}_data.qcow2"
   pool   = libvirt_pool.worker.name
   format = "qcow2"
-  size   = 100000000000
+  size   = 120000000000
+}
 
 resource "libvirt_volume" "longhornDisk" {
   name   = "${var.machine_name}_longhorn.qcow2"

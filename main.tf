@@ -132,7 +132,7 @@ module "rancher" {
   rke = {
     cluster_name       = "rancher_test"
     dind               = false
-    kubernetes_version = "v1.18.6-rancher1-1"
+    kubernetes_version = var.rke_Version
   }
 }
 

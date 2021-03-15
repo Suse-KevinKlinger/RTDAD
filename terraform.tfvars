@@ -82,3 +82,5 @@ ceph_admin_secret = "QVFBYnM3dGZBQUFBQUJBQSs1SVIvaUNWd0Jrcko0YXIrWXUyTmc9PQo="
 
 # (Optional) If a Ceph storage is used, the user secret can be initialized here so K8s will create those on deployment
 ceph_user_secret = "QVFBZHM3dGZBQUFBQUJBQVA3UkxrU1NqOVVTNWEzZDJDcmhYbEE9PQo="
+
+rke_Version = "v1.18.16-rancher1-1"

@@ -156,3 +156,8 @@ variable "cert_manager_version" {
   type        = string
   default     = "v1.0.4"
 }
+variable "rke_Version" {
+  description = "Specifies the RKE version and by this the Kubernetes version to be used"
+  type        = string
+  default     = "v1.18.16-rancher1-1"
+}

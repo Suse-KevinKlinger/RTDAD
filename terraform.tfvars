@@ -71,9 +71,9 @@ workstation = {
   memory   = 4096
 }
 
-registry_ip         = "10.17.69.28"
-registry_fqdn       = "Harbor-Registry.example.com"
-registry_hostname   = "Harbor-Registry"
+registry_ip       = "10.17.69.28"
+registry_fqdn     = "Harbor-Registry.example.com"
+registry_hostname = "Harbor-Registry"
 
 rancherUI_address = "test.example.com"
 

@@ -159,8 +159,10 @@ module "kubernetes" {
 module "helm" {
   depends_on = [module.kubernetes]
 
-  source     = "./modules/rancher"
-  rancherUI_address = var.rancherUI_address
+  source               = "./modules/rancher"
+  rancherUI_address    = var.rancherUI_address
+  rancherUI_version    = var.rancherUI_version
+  cert_manager_version = var.cert_manager_version
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

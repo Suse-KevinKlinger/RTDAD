@@ -94,12 +94,12 @@ resource "kubernetes_storage_class" "longhorn" {
       "storageclass.kubernetes.io/is-default-class" = var.useLonghorn ? "true" : "false"
     }
   }
-  storage_provisioner = "driver.longhorn.io"
+  storage_provisioner    = "driver.longhorn.io"
   allow_volume_expansion = true
   parameters = {
-    numberOfReplicas= "3"
-    staleReplicaTimeout= "2880" # 48 hours in minutes
-    fromBackup= ""
+    numberOfReplicas    = "3"
+    staleReplicaTimeout = "2880" # 48 hours in minutes
+    fromBackup          = ""
   }
 }
 

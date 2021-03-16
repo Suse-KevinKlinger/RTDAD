@@ -1,10 +1,10 @@
 variable "rke_nodes" {
   type = list(object({
-    public_ip = string
-    hostname  = string
-    roles     = list(string)
-    user      = string
-    ssh_key   = string
+    ip       = string
+    hostname = string
+    roles    = list(string)
+    user     = string
+    ssh_key  = string
   }))
   description = "Node info to install RKE cluster"
 }

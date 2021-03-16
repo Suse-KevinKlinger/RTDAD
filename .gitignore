@@ -29,8 +29,9 @@ override.tf.json
 # example: *tfplan*
 #
 
+*.log
 *.raw
 *.qcow2
 *.tar.gz
 planfile
-
+modules/keys/*

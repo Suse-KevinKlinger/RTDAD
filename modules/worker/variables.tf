@@ -18,12 +18,6 @@ variable "storage_pool" {
   default     = "default"
 }
 
-variable "network_name" {
-  description = "Already existing virtual network name. If it's not provided a new one will be created"
-  type        = string
-  default     = ""
-}
-
 variable "source_image" {
   description = "Source image used to boot the machines (qcow2 format). It's possible to specify the path to a local (relative to the machine running the terraform command) image or a remote one. Remote images have to be specified using HTTP(S) urls for now. Specific node images have preference over this value"
   type        = string
@@ -68,12 +62,6 @@ variable "ip_address" {
   default     = ""
 }
 
-variable "public_ip" {
-  description = "Public IP address the machine is supposed to receive"
-  type        = string
-  default     = ""
-}
-
 variable "public_key" {
   description = "Public ssh key created by keys module"
   type        = string
@@ -84,4 +72,34 @@ variable "ssh_key_file" {
   description = "Private ssh key to connect to machine"
   type        = string
   default     = ""
+}
+
+variable "salt_master_address" {
+  description = "Address of the Salt master node"
+  type        = string
+  default     = ""
+}
+
+variable "registry_ip" {
+  description = "IP address of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "registry_fqdn" {
+  description = "FQDN of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "registry_hostname" {
+  description = "Hostname of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "longhorn_disk_size" {
+  description = "Specifies the size (in Bytes) of the disk to be used for Longhorn storage"
+  type        = number
+  default     = 220000000000
 }

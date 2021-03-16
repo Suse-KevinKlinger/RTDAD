@@ -20,6 +20,9 @@ data "template_file" "user_data" {
     HOSTNAME  = var.machine_name
     PUBLICKEY = var.public_key
     IPADDR    = var.ip_address
+    REGIP     = var.registry_ip
+    REGFQDN   = var.registry_fqdn
+    REGHN     = var.registry_hostname
   }
 }
 
@@ -39,9 +42,7 @@ resource "libvirt_domain" "workstation" {
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
   network_interface {
-    network_name = var.network_name
-    mac          = var.mac_address
-    hostname     = var.machine_name
+    bridge = "br0"
   }
 
   # IMPORTANT: this is a known bug on cloud images, since they expect a console

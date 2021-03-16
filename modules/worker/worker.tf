@@ -17,17 +17,27 @@ resource "libvirt_volume" "dataDisk" {
   name   = "${var.machine_name}_data.qcow2"
   pool   = libvirt_pool.worker.name
   format = "qcow2"
-  size   = 100000000000
+  size   = 120000000000
+}
+
+resource "libvirt_volume" "longhornDisk" {
+  name   = "${var.machine_name}_longhorn.qcow2"
+  pool   = libvirt_pool.worker.name
+  format = "qcow2"
+  size   = var.longhorn_disk_size
 }
 
 
 data "template_file" "user_data" {
   template = file(var.user_data_path)
   vars = {
-    HOSTNAME  = var.machine_name
-    PUBLICKEY = var.public_key
-    IPADDR    = var.ip_address
-    PUBLICIP  = var.public_ip
+    HOSTNAME       = var.machine_name
+    PUBLICKEY      = var.public_key
+    IPADDR         = var.ip_address
+    SALTMASTERADDR = var.salt_master_address
+    REGIP          = var.registry_ip
+    REGFQDN        = var.registry_fqdn
+    REGHN          = var.registry_hostname
   }
 }
 
@@ -48,12 +58,6 @@ resource "libvirt_domain" "worker" {
   vcpu   = var.cpu
 
   cloudinit = libvirt_cloudinit_disk.commoninit.id
-
-  network_interface {
-    network_name = var.network_name
-    mac          = var.mac_address
-    hostname     = var.machine_name
-  }
 
   network_interface {
     bridge = "br0"
@@ -79,6 +83,9 @@ resource "libvirt_domain" "worker" {
   }
   disk {
     volume_id = libvirt_volume.dataDisk.id
+  }
+  disk {
+    volume_id = libvirt_volume.longhornDisk.id
   }
 
   graphics {

@@ -18,12 +18,6 @@ variable "storage_pool" {
   default     = "default"
 }
 
-variable "network_name" {
-  description = "Already existing virtual network name. If it's not provided a new one will be created"
-  type        = string
-  default     = ""
-}
-
 variable "source_image" {
   description = "Source image used to boot the machines (qcow2 format). It's possible to specify the path to a local (relative to the machine running the terraform command) image or a remote one. Remote images have to be specified using HTTP(S) urls for now. Specific node images have preference over this value"
   type        = string
@@ -80,6 +74,24 @@ variable "ssh_key_file" {
 
 variable "kubeconfig" {
   description = "Kubeconfig to access the RKE cluster"
+  type        = string
+  default     = ""
+}
+
+variable "registry_ip" {
+  description = "IP address of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "registry_fqdn" {
+  description = "FQDN of the private container registry to be used for SAP DI"
+  type        = string
+  default     = ""
+}
+
+variable "registry_hostname" {
+  description = "Hostname of the private container registry to be used for SAP DI"
   type        = string
   default     = ""
 }

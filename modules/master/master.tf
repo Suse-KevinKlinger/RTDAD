@@ -17,17 +17,20 @@ resource "libvirt_volume" "dataDisk" {
   name   = "${var.machine_name}_data.qcow2"
   pool   = libvirt_pool.master.name
   format = "qcow2"
-  size   = 100000000000
+  size   = 120000000000
 }
 
 
 data "template_file" "user_data" {
   template = file(var.user_data_path)
   vars = {
-    HOSTNAME  = var.machine_name
-    PUBLICKEY = var.public_key
-    IPADDR    = var.ip_address
-    PUBLICIP  = var.public_ip
+    HOSTNAME       = var.machine_name
+    PUBLICKEY      = var.public_key
+    IPADDR         = var.ip_address
+    SALTMASTERADDR = var.salt_master_address
+    REGIP          = var.registry_ip
+    REGFQDN        = var.registry_fqdn
+    REGHN          = var.registry_hostname
   }
 }
 
@@ -50,9 +53,7 @@ resource "libvirt_domain" "master" {
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
   network_interface {
-    network_name = var.network_name
-    mac          = var.mac_address
-    hostname     = var.machine_name
+    bridge = "br0"
   }
 
   # IMPORTANT: this is a known bug on cloud images, since they expect a console

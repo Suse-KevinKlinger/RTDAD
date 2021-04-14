@@ -103,3 +103,8 @@ variable "longhorn_disk_size" {
   type        = number
   default     = 220000000000
 }
+
+variable "rke2server" {
+  type    = string
+  default = ""
+}

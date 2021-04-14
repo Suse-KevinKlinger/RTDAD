@@ -73,8 +73,7 @@ resource "libvirt_domain" "workstation" {
   # Writes the kubeconfig file created by the RKE provider to access the RKE cluster
   provisioner "remote-exec" {
     inline = [
-      "cloud-init status --wait > /dev/null",
-      "echo '${var.kubeconfig}' > /root/.kube/config"
+      "cloud-init status --wait > /dev/null"
     ]
     connection {
       type        = "ssh"

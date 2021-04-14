@@ -3,11 +3,7 @@
 provider "libvirt" {
   uri = var.provider_uri
 }
-
-provider "rke" {
-  log_file = "rke_debug.log"
-}
-
+/*
 provider "kubernetes" {
   host                   = module.rancher.api_server_url
   client_certificate     = module.rancher.client_cert
@@ -22,7 +18,7 @@ provider "helm" {
     client_key             = module.rancher.client_key
     cluster_ca_certificate = module.rancher.ca_crt
   }
-}
+}*/
 
 # ---------------------------------------------------------------------------------------------------------------------
 #  CREATE SSH KEYS
@@ -61,7 +57,7 @@ module "master" {
   mac_address         = var.masterHosts[count.index].mac
   ip_address          = var.masterHosts[count.index].ip
   cluster_name        = var.cluster_name
-  user_data_path      = "${path.module}/cloud_init.cfg"
+  user_data_path      = "${path.module}/modules/master/cloud_init.cfg"
   storage_pool        = var.storage_pool
   cpu                 = var.master_cpu
   memory              = var.master_memory
@@ -71,6 +67,7 @@ module "master" {
   registry_ip         = var.registry_ip
   registry_fqdn       = var.registry_fqdn
   registry_hostname   = var.registry_hostname
+  rke2server          = var.masterHosts[0].ip
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -86,7 +83,7 @@ module "worker" {
   mac_address         = var.workerHosts[count.index].mac
   ip_address          = var.workerHosts[count.index].ip
   cluster_name        = var.cluster_name
-  user_data_path      = "${path.module}/cloud_init.cfg"
+  user_data_path      = "${path.module}/modules/worker/cloud_init.cfg"
   storage_pool        = var.storage_pool
   cpu                 = var.worker_cpu
   memory              = var.worker_memory
@@ -96,59 +93,15 @@ module "worker" {
   registry_ip         = var.registry_ip
   registry_fqdn       = var.registry_fqdn
   registry_hostname   = var.registry_hostname
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
-#  Deploy RKE
-# ---------------------------------------------------------------------------------------------------------------------
-
-locals {
-  masterList = flatten([
-    for host in module.master : {
-      ip       = host.ip
-      hostname = host.hostname
-      roles    = host.roles
-      ssh_key  = tls_private_key.id.private_key_pem
-      user     = host.user
-    }
-  ])
-  workerList = flatten([
-    for host in module.worker : {
-      ip       = host.ip
-      hostname = host.hostname
-      roles    = host.roles
-      ssh_key  = tls_private_key.id.private_key_pem
-      user     = host.user
-    }
-  ])
-}
-
-module "rancher" {
-  depends_on = [module.master, module.worker, local.masterList, local.workerList]
-  source     = "./modules/rke/"
-
-  rke_nodes = concat(local.masterList, local.workerList)
-
-  rke = {
-    cluster_name       = "rancher_test"
-    dind               = false
-    kubernetes_version = var.rke_Version
-  }
-}
-
-// Write kubeconfig to Terraform host
-resource "local_file" "kubeconfig" {
-  content    = module.rancher.kubeconfig
-  filename   = "modules/k8s/kubeconfig"
-  depends_on = [module.rancher]
+  rke2server          = var.masterHosts[0].ip
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 #  Prepare Kubernetes for SAP DI Deployment
 # ---------------------------------------------------------------------------------------------------------------------
-
+/*
 module "kubernetes" {
-  depends_on = [module.rancher]
+  depends_on = [module.master, module.worker]
 
   source            = "./modules/k8s"
   namespace         = var.k8s_namespace
@@ -164,14 +117,12 @@ module "helm" {
   rancherUI_version    = var.rancherUI_version
   cert_manager_version = var.cert_manager_version
 }
-
+*/
 # ---------------------------------------------------------------------------------------------------------------------
 #  Spin up Workstation
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "workstation" {
-  depends_on = [module.rancher]
-
   source            = "./modules/workstation/"
   machine_name      = var.workstation.hostname
   ip_address        = var.workstation.ip
@@ -182,7 +133,7 @@ module "workstation" {
   memory            = var.workstation.memory
   ssh_key_file      = tls_private_key.id.private_key_pem
   public_key        = tls_private_key.id.public_key_openssh
-  kubeconfig        = module.rancher.kubeconfig
+  kubeconfig        = ""
   registry_ip       = var.registry_ip
   registry_fqdn     = var.registry_fqdn
   registry_hostname = var.registry_hostname

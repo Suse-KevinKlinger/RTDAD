@@ -96,3 +96,8 @@ variable "registry_hostname" {
   type        = string
   default     = ""
 }
+
+variable "rke2server" {
+  type    = string
+  default = ""
+}

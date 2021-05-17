@@ -68,6 +68,7 @@ module "master" {
   registry_fqdn       = var.registry_fqdn
   registry_hostname   = var.registry_hostname
   rke2server          = var.masterHosts[0].ip
+  default_route_ip    = var.default_route_ip
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -94,6 +95,7 @@ module "worker" {
   registry_fqdn       = var.registry_fqdn
   registry_hostname   = var.registry_hostname
   rke2server          = var.masterHosts[0].ip
+  default_route_ip    = var.default_route_ip
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -137,4 +139,5 @@ module "workstation" {
   registry_ip       = var.registry_ip
   registry_fqdn     = var.registry_fqdn
   registry_hostname = var.registry_hostname
+  default_route_ip    = var.default_route_ip
 }

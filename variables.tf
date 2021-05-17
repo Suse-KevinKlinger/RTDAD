@@ -161,3 +161,8 @@ variable "rke_Version" {
   type        = string
   default     = "v1.18.16-rancher1-1"
 }
+
+variable "default_route_ip" {
+  type = string
+  default = ""
+}

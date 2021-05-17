@@ -101,3 +101,8 @@ variable "rke2server" {
   type    = string
   default = ""
 }
+
+variable "default_route_ip" {
+  type = string
+  default = ""
+}

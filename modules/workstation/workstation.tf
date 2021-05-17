@@ -23,6 +23,7 @@ data "template_file" "user_data" {
     REGIP     = var.registry_ip
     REGFQDN   = var.registry_fqdn
     REGHN     = var.registry_hostname
+    ROUTEIP   = var.default_route_ip
   }
 }
 

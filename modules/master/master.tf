@@ -32,6 +32,7 @@ data "template_file" "user_data" {
     REGFQDN        = var.registry_fqdn
     REGHN          = var.registry_hostname
     RKE2SERVER     = var.rke2server
+    ROUTEIP        = var.default_route_ip
   }
 }
 

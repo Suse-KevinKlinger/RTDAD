@@ -139,5 +139,5 @@ module "workstation" {
   registry_ip       = var.registry_ip
   registry_fqdn     = var.registry_fqdn
   registry_hostname = var.registry_hostname
-  default_route_ip    = var.default_route_ip
+  default_route_ip  = var.default_route_ip
 }

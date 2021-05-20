@@ -163,6 +163,6 @@ variable "rke_Version" {
 }
 
 variable "default_route_ip" {
-  type = string
+  type    = string
   default = ""
 }

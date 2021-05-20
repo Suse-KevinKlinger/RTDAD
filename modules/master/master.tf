@@ -52,6 +52,10 @@ resource "libvirt_domain" "master" {
   memory = var.memory
   vcpu   = var.cpu
 
+  cpu = {
+    mode = "host-passthrough"
+  }
+
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
   network_interface {

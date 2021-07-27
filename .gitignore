@@ -35,3 +35,4 @@ override.tf.json
 *.tar.gz
 planfile
 modules/keys/*
+terraform.tfvars

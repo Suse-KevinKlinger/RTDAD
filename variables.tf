@@ -62,6 +62,12 @@ variable "worker_memory" {
   default     = 32768
 }
 
+variable "longhorn_disk_size" {
+  description = "Specifies the size (in Bytes) of the disk to be used for Longhorn storage"
+  type        = number
+  default     = 220000000000
+}
+
 variable "workerHosts" {
   description = ""
   type = list(object({

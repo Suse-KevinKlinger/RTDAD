@@ -90,6 +90,7 @@ module "worker" {
   storage_pool        = var.storage_pool
   cpu                 = var.worker_cpu
   memory              = var.worker_memory
+  longhorn_disk_size  = var.longhorn_disk_size
   ssh_key_file        = tls_private_key.id.private_key_pem
   public_key          = tls_private_key.id.public_key_openssh
   salt_master_address = var.workstation.ip

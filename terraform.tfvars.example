@@ -64,6 +64,9 @@ worker_cpu = 4
 # (Optional) Specifies the amount of memory the RKE Worker nodes will receive
 worker_memory = 32768
 
+# (Optional) Specifies the size (in Bytes) of the disk to be used for Longhorn storage
+longhorn_disk_size = 
+
 workstation = {
   ip       = "192.168.0.20"
   hostname = "Workstation"

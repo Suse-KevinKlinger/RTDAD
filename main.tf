@@ -3,7 +3,9 @@
 provider "libvirt" {
   uri = var.provider_uri
 }
-/*
+
+// TODO: Adjust when there is a RKE2 terraform provider
+/* 
 provider "kubernetes" {
   host                   = module.rancher.api_server_url
   client_certificate     = module.rancher.client_cert
@@ -98,6 +100,7 @@ module "worker" {
   default_route_ip    = var.default_route_ip
 }
 
+// TODO: Adjust when there is a RKE2 terraform provider
 # ---------------------------------------------------------------------------------------------------------------------
 #  Prepare Kubernetes for SAP DI Deployment
 # ---------------------------------------------------------------------------------------------------------------------

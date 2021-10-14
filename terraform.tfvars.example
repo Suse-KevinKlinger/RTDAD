@@ -13,17 +13,17 @@ source_image = "./modules/template.qcow2"
 
 masterHosts = [
   {
-    ip       = "10.17.69.25"
+    ip       = "192.168.0.1"
     mac      = "52:54:00:6c:3c:78"
     hostname = "Master1"
   },
   {
-    ip       = "10.17.69.26"
+    ip       = "192.168.0.2"
     mac      = "52:54:00:6c:3c:79"
     hostname = "Master2"
   },
   {
-    ip       = "10.17.69.27"
+    ip       = "192.168.0.3"
     mac      = "52:54:00:6c:3c:7a"
     hostname = "Master3"
   }
@@ -31,56 +31,52 @@ masterHosts = [
 
 workerHosts = [
   {
-    ip       = "10.17.69.17"
+    ip       = "192.168.0.11"
     mac      = "52:54:00:6c:3c:7b"
     hostname = "Worker1"
   },
   {
-    ip       = "10.17.69.18"
+    ip       = "192.168.0.12"
     mac      = "52:54:00:6c:3c:7c"
     hostname = "Worker2"
   },
   {
-    ip       = "10.17.69.19"
+    ip       = "192.168.0.13"
     mac      = "52:54:00:6c:3c:7d"
     hostname = "Worker3"
   },
   {
-    ip       = "10.17.69.21"
+    ip       = "192.168.0.14"
     mac      = "52:54:00:6c:3c:7e"
     hostname = "Worker4"
   }
 ]
 
-# (Optional) Specifies the number of CPU the CaaSP Master nodes will receive
+# (Optional) Specifies the number of CPU the RKE Master nodes will receive
 master_cpu = 4
 
-# (Optional) Specifies the amount of memory the CaaSP Master nodes will receive
+# (Optional) Specifies the amount of memory the RKE Master nodes will receive
 master_memory = 16384
 
-# (Optional) Specifies the number of CPU the CaaSP Worker nodes will receive
+# (Optional) Specifies the number of CPU the RKE Worker nodes will receive
 worker_cpu = 4
 
-# (Optional) Specifies the amount of memory the CaaSP Worker nodes will receive
+# (Optional) Specifies the amount of memory the RKE Worker nodes will receive
 worker_memory = 32768
 
 workstation = {
-  ip       = "10.17.69.29"
+  ip       = "192.168.0.20"
   hostname = "Workstation"
   cpu      = 1
   memory   = 4096
 }
 
-registry_ip       = "10.17.69.28"
+registry_ip       = "192.168.0.21"
 registry_fqdn     = "Harbor-Registry.example.com"
 registry_hostname = "Harbor-Registry"
-
-rancherUI_address = "test.example.com"
 
 # (Optional) If a Ceph storage is used, the admin secret can be initialized here so K8s will create those on deployment
 ceph_admin_secret = "QVFBYnM3dGZBQUFBQUJBQSs1SVIvaUNWd0Jrcko0YXIrWXUyTmc9PQo="
 
 # (Optional) If a Ceph storage is used, the user secret can be initialized here so K8s will create those on deployment
 ceph_user_secret = "QVFBZHM3dGZBQUFBQUJBQVA3UkxrU1NqOVVTNWEzZDJDcmhYbEE9PQo="
-
-rke_Version = "v1.18.16-rancher1-1"

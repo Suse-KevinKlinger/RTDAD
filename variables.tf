@@ -24,7 +24,7 @@ variable "source_image" {
   default     = ""
 }
 
-# CaaSP master node related variables
+# RKE master node related variables
 
 variable "master_cpu" {
   description = "Number of CPUs the master nodes will receive"
@@ -48,7 +48,7 @@ variable "masterHosts" {
   default = []
 }
 
-# CaaSP worker node related variables
+# RKE worker node related variables
 
 variable "worker_cpu" {
   description = "Number of CPUs the worker nodes will receive"
@@ -102,13 +102,6 @@ variable "nodes" {
   default = []
 }
 
-# Kubernetes related variables
-variable "k8s_namespace" {
-  description = "The Kubernetes namespace that will be created and be used for secrets, storageClasses, etc."
-  type        = string
-  default     = "di"
-}
-
 variable "ceph_admin_secret" {
   description = "The key that can be used to access the SES storage as admin user"
   type        = string
@@ -139,30 +132,41 @@ variable "registry_hostname" {
   default     = ""
 }
 
-variable "rancherUI_address" {
-  description = "FQDN of where the Rancher UI should be reached at"
-  type        = string
-  default     = ""
-}
-
-variable "rancherUI_version" {
-  description = "Desired version of the Rancher UI to be deployed"
-  type        = string
-  default     = "v2.5.6"
-}
-
-variable "cert_manager_version" {
-  description = "Desired version of the Cert-Manager to be deployed"
-  type        = string
-  default     = "v1.0.4"
-}
-variable "rke_Version" {
-  description = "Specifies the RKE version and by this the Kubernetes version to be used"
-  type        = string
-  default     = "v1.18.16-rancher1-1"
-}
-
 variable "default_route_ip" {
+  description = "The IP of the default route gateway to be used"
   type    = string
   default = ""
 }
+
+// TODO check if needed when there is a RKE2 terraform provider
+
+# variable "rancherUI_address" {
+#   description = "FQDN of where the Rancher UI should be reached at"
+#   type        = string
+#   default     = ""
+# }
+
+# variable "rancherUI_version" {
+#   description = "Desired version of the Rancher UI to be deployed"
+#   type        = string
+#   default     = "v2.5.6"
+# }
+
+# variable "cert_manager_version" {
+#   description = "Desired version of the Cert-Manager to be deployed"
+#   type        = string
+#   default     = "v1.0.4"
+# }
+# variable "rke_Version" {
+#   description = "Specifies the RKE version and by this the Kubernetes version to be used"
+#   type        = string
+#   default     = "v1.18.16-rancher1-1"
+# }
+#
+#
+# # Kubernetes related variables
+# variable "k8s_namespace" {
+#   description = "The Kubernetes namespace that will be created and be used for secrets, storageClasses, etc."
+#   type        = string
+#   default     = "di"
+# }
